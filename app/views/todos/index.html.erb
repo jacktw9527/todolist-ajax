@@ -1,0 +1,51 @@
+<div class="container">
+
+  <h1 class="text-center">To Do List</h1>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">事項清單</h3>
+    </div>
+
+    <!-- Add new todo -->
+    <div class="panel-body">
+    <%= form_for @todo, {remote: true} do |f| %>
+      <%= f.label "Add New To-Do" %>
+      <div class="input-group">
+        <%= f.text_area :title, :class => "form-control" %>
+        <div class="input-group-addon">
+          <%= f.submit "Create", :class => "my-btn my-btn-transparent" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <!-- Todo List -->
+    <table class="my-table table table-hover">
+      <tbody id="todolist">
+        <% @todos.each do |todo| %>
+          <tr id="<%= todo.id %>">
+            <%= render :partial => "todo", :locals => { :todo => todo } %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#todolist").on("click", ".delete-todo", function(event){
+    var id = event.target.parentNode.parentNode.id;
+    console.log(id);
+
+    $.ajax({
+      url: "todos/" + id,
+      method: "DELETE",
+      dataType: "json",
+      success: function(data){
+        $("#" + data["id"]).remove();
+      }
+    });
+
+  });
+</script>
