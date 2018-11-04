@@ -12,7 +12,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     @todo.save
-
+    render :json => {:id => @todo.id, :title => @todo.title}
     #redirect_to todos_path
   end
 
