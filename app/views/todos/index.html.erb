@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<!--- --->
+<!--------------------- jquery 手刻 AJAX  ---------------------->
 <script>
   //Destroy 的事件驅動
   $("#todolist").on("click", ".delete-todo", function(event){
@@ -109,6 +109,21 @@
     });
   });
 
+  //Checkbox 事件驅動
+  $("#todolist").on("click", ".toggle-todo", function(event){
+    var id = event.target.parentNode.parentNode.id;
+
+    $.ajax({
+      url: "todos/" + id + "/toggle_check",
+      method: "POST",
+      dataType: "json",
+      success: function(data){
+        var checkbocColumn = $("#" + data["id"]).find(".my-pointer");
+        data["done"] ? checkbocColumn.html('<span class="todggle-todo my-font glyphicon glyphicon-check"></span>') : checkbocColumn.html('<span class="toggle-todo my-font glyphicon glyphicon-unchecked"></span>');
+      }
+    });
+  });
+
 </script>
 
 <script type="text/template" id="todo-template">
@@ -118,8 +133,8 @@
   <td class="my-title">
     <p class="title my-font"></p>
   <td class="my-operation">
-    <span class="edit-todo my-btn my-btn-transparent text-info glyphicon glyphicon-pencil"></span>
-    <span class="delete-todo my-btn my-btn-transparent text-danger glyphicon glyphicon-trash"></span>
+    <span class="toggle-todo edit-todo my-btn my-btn-transparent text-info glyphicon glyphicon-pencil"></span>
+    <span class="toggle-todo delete-todo my-btn my-btn-transparent text-danger glyphicon glyphicon-trash"></span>
   </td>
 </script>
 

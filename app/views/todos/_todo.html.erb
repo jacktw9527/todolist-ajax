@@ -1,12 +1,10 @@
 <td class="my-pointer">
-  <%= link_to toggle_check_todo_path(todo), id: "todo-check-#{todo.id}", remote: true, method: :post do %>
     <% if todo.done? %>
-      <span class="my-font glyphicon glyphicon-check"></span>
+      <span class="toggle-todo my-font glyphicon glyphicon-check"></span>
     <% else %>
-      <span class="my-font glyphicon glyphicon-unchecked"></span>
+      <span class="toggle-todo my-font glyphicon glyphicon-unchecked"></span>
     <% end %>
-  <% end %>
-</td>
+  </td>
 <td class="my-title">
   <p class="title my-font">
     <%= todo.title %>
