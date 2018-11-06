@@ -127,7 +127,7 @@
 
 
   //無限捲軸
-  var current_todo_id = <%= @todos.last.id %>
+  var current_todo_id = <%= @todos.last&.id || 0 %>
 
   $(window).on("scroll", function(event){
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
